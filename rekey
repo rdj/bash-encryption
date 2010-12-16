@@ -1,0 +1,17 @@
+#!/bin/bash
+
+DATAFILE=${1:-"$(dirname $0)/data"}
+
+CIPHER='-aes-256-cbc -salt'
+
+RC=1
+while [[ $RC -ne 0 ]]; do
+    PLAINTEXT=$(openssl enc -d $CIPHER -in "$DATAFILE")
+    RC=$?
+done
+
+RC=1
+while [[ $RC -ne 0 ]]; do
+    openssl enc $CIPHER -out "$DATAFILE" <<< "$PLAINTEXT"
+    RC=$?
+done

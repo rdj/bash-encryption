@@ -22,6 +22,10 @@ To decrypt / edit / encrypt using $EDITOR :
 
     ./edit [filename]
 
+To change the pass phrase :
+
+    ./rekey [filename]
+
 When the optional filename argument is not supplied, the scripts
 default to using a file called “data” in the same directory as the
 scripts.
