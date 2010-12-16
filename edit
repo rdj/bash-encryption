@@ -1,0 +1,25 @@
+#!/bin/bash
+
+DATAFILE=${1:-"$(dirname $0)/data"}
+
+CIPHER='-aes-256-cbc -salt'
+TMPFILE=$(mktemp -t $(basename $0)) || exit 1
+
+# stty echo in case they ^C during read -s
+trap "rm $TMPFILE; stty echo; exit 1" SIGHUP SIGINT SIGTERM
+
+RC=1
+while [[ $RC -ne 0 ]]; do
+    read -s -p "Passphrase: " PASSPHRASE
+    echo
+    openssl enc -d $CIPHER -in "$DATAFILE" -out "$TMPFILE" -pass stdin <<< "$PASSPHRASE"
+    RC=$?
+done
+
+$EDITOR "$TMPFILE"
+
+if [[ $? -eq 0 ]]; then
+    openssl enc $CIPHER -in "$TMPFILE" -out "$DATAFILE" -pass stdin <<< "$PASSPHRASE"
+fi
+
+rm -f "$TMPFILE"
