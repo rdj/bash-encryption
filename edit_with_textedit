@@ -1,4 +1,6 @@
 #!/bin/bash
 
+DATAPATH=$(dirname "$0")
+
 export EDITOR='open -n -W -t'
-exec "$(dirname "$0")/edit" "$@"
+exec "${DATAPATH}/edit" "$@"

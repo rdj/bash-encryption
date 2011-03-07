@@ -1,6 +1,7 @@
 #!/bin/bash
 
 CIPHER='-aes-256-cbc -salt'
-DATAFILE=${1:-"$(dirname $0)/data"}
+DATAPATH=$(dirname "$0")
+DATAFILE=${1:-"${DATAPATH}/data"}
 
 openssl enc $CIPHER -out "$DATAFILE" <<< ''

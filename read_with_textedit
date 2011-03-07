@@ -2,11 +2,12 @@
 
 # Can't just use open -f since it leaves a tmpfile with the plaintext
 
-TMPFILE=$(mktemp -t $(basename $0)) || exit 1
+DATAPATH=$(dirname "$0")
+TMPFILE=$(mktemp -t $(basename "$0")) || exit 1
 
 trap "rm $TMPFILE; exit 1" SIGHUP SIGINT SIGTERM
 
-$(dirname "$0")/read "$@" > "$TMPFILE"
+"${DATAPATH}/read" "$@" > "$TMPFILE"
 
 open -t "$TMPFILE"
 
