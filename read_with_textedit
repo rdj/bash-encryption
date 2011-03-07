@@ -6,7 +6,7 @@ TMPFILE=$(mktemp -t $(basename $0)) || exit 1
 
 trap "rm $TMPFILE; exit 1" SIGHUP SIGINT SIGTERM
 
-$(dirname $0)/read "$@" > "$TMPFILE"
+$(dirname "$0")/read "$@" > "$TMPFILE"
 
 open -t "$TMPFILE"
 

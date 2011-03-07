@@ -1,4 +1,4 @@
 #!/bin/bash
 
 export EDITOR='open -n -W -t'
-exec "$(dirname $0)/edit" "$@"
+exec "$(dirname "$0")/edit" "$@"
